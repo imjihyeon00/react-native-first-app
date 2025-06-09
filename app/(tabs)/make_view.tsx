@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 
 
-export default function HomeScreen() {
+export default function MakeView() {
   return (
-    <View style={styles.titleContainer}>Fast 강의 이론 공부</View>
+    <View style={styles.titleContainer}></View>
   );
 }
 
