@@ -1,9 +1,13 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 
 export default function HomeScreen() {
   return (
-    <View style={styles.titleContainer}>Fast 강의 이론 공부</View>
+    <View style={styles.titleContainer}>
+      <Text>
+        Fast 강의 이론 공부  
+      </Text>
+    </View>
   );
 }
 
