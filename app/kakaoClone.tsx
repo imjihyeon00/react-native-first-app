@@ -22,6 +22,7 @@ export default function MakeView() {
       flex: 1,
       backgroundColor: '#fff',
       paddingTop: insets.top,
+      paddingHorizontal: 15,
     },
   }
 
