@@ -9,10 +9,11 @@ interface FriendListProps {
     name: string;
     introduction: string;
   }[];
+  isOpen?: boolean;
 }
 export default function FriendList(props:FriendListProps) {
   const insets = useSafeAreaInsets();
-  return (
+  return props.isOpen && (
     <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: insets.bottom }}>
       {props.data.map((item, idx) => (
         <View key={idx}>

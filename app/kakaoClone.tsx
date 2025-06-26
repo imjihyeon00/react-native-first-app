@@ -1,6 +1,6 @@
 import MyProfile from '@/components/kakaoClone/Profile';
 import Header from '@components/kakaoClone/Header';
-import React from 'react';
+import React, { useState } from 'react';
 // import { SafeAreaView } from 'react-native';
 import Division from '@/components/kakaoClone/Division';
 import FriendList from '@/components/kakaoClone/FriendList';
@@ -16,6 +16,7 @@ import {
 
 export default function MakeView() {
   const insets = useSafeAreaInsets();
+  const [isOpen, setIsOpen] = useState(true);
 
   const styles = {
     container: {
@@ -27,7 +28,7 @@ export default function MakeView() {
   }
 
   const onPressFriendArrow = () => {
-    console.log('친구 목록 보기');
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -47,9 +48,11 @@ export default function MakeView() {
         <FriendSection
           friendProfileLen={friendProfiles.length}
           onPress={onPressFriendArrow}
+          isOpen={isOpen}
         />
         <FriendList
           data={friendProfiles}
+          isOpen={isOpen}
         />
       </SafeAreaView>
     </SafeAreaProvider>
