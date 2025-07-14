@@ -6,7 +6,9 @@ import Division from '@/components/kakaoClone/Division';
 import FriendList from '@/components/kakaoClone/FriendList';
 import FriendSection from '@/components/kakaoClone/FriendSection';
 import Margin from '@/components/kakaoClone/Margin';
+import TabBar from '@/components/kakaoClone/TabBar';
 import { friendProfiles, myProfile } from '@lib/data';
+import { View } from 'react-native';
 import {
   SafeAreaProvider,
   SafeAreaView,
@@ -23,7 +25,6 @@ export default function MakeView() {
       flex: 1,
       backgroundColor: '#fff',
       paddingTop: insets.top,
-      paddingHorizontal: 15,
     },
   }
 
@@ -34,26 +35,29 @@ export default function MakeView() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={['left', 'right']}>
-        <Header />
-        <Margin height={10} />
-        <MyProfile
-          uri={myProfile.uri}
-          name={myProfile.name}
-          introduction={myProfile.introduction}
-        />
-        <Margin height={15} />
-        <Division />
-        <Margin height={12} />
+        <View style={{ flex: 1, paddingHorizontal: 15}}>
+          <Header />
+          <Margin height={10} />
+          <MyProfile
+            uri={myProfile.uri}
+            name={myProfile.name}
+            introduction={myProfile.introduction}
+          />
+          <Margin height={15} />
+          <Division />
+          <Margin height={12} />
 
-        <FriendSection
-          friendProfileLen={friendProfiles.length}
-          onPress={onPressFriendArrow}
-          isOpen={isOpen}
-        />
-        <FriendList
-          data={friendProfiles}
-          isOpen={isOpen}
-        />
+          <FriendSection
+            friendProfileLen={friendProfiles.length}
+            onPress={onPressFriendArrow}
+            isOpen={isOpen}
+          />
+          <FriendList
+            data={friendProfiles}
+            isOpen={isOpen}
+          />
+        </View> 
+        <TabBar />
       </SafeAreaView>
     </SafeAreaProvider>
   );

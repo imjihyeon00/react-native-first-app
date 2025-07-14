@@ -1,5 +1,4 @@
 import { ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Margin from "./Margin";
 import Profile from "./Profile";
 
@@ -12,9 +11,8 @@ interface FriendListProps {
   isOpen?: boolean;
 }
 export default function FriendList(props:FriendListProps) {
-  const insets = useSafeAreaInsets();
   return props.isOpen && (
-    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: insets.bottom }}>
+    <ScrollView showsVerticalScrollIndicator={false}>
       {props.data.map((item, idx) => (
         <View key={idx}>
           <Profile
