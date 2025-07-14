@@ -51,6 +51,7 @@ export default function MakeView() {
         uri={myProfile.uri}
         name={myProfile.name}
         introduction={myProfile.introduction}
+        isMe={true}
       />
       <Margin height={15} />
       <Division />
