@@ -18,7 +18,8 @@ import {
 
 export default function MakeView() {
   const insets = useSafeAreaInsets();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [selectedTabIdx, setSelectedTabIdx] = useState<number>(0) // tab index state 0:친구, 1:채팅, 2:쇼핑, 3:설정
 
   const styles = {
     container: {
@@ -57,7 +58,10 @@ export default function MakeView() {
             isOpen={isOpen}
           />
         </View> 
-        <TabBar />
+        <TabBar 
+          selectedTabIdx={selectedTabIdx} 
+          setSelectedTabIdx={setSelectedTabIdx}
+        />
       </SafeAreaView>
     </SafeAreaProvider>
   );
