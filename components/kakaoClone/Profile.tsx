@@ -5,7 +5,7 @@ interface MyProfileProps {
   uri: string;
   name: string;
   introduction: string;
-  isMe: boolean;
+  isMe?: boolean;
 }
 export default function Profile({uri, name, introduction, isMe=false}: MyProfileProps) {
   const size = isMe ? 50 : 40
