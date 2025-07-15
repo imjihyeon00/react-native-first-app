@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 type IconProps = {
   name: React.ComponentProps<typeof Ionicons>['name'];
@@ -11,9 +11,9 @@ type IconProps = {
 
 const IconButton = ({ name, size = 24, color = 'black' }: IconProps) => {
   return (
-    <View style={{paddingHorizontal: 10}}>
+    <TouchableOpacity hitSlop={{top: 15, bottom: 15 }} style={{paddingHorizontal: 6 }}>
       <Ionicons name={name} size={size} color={color} />
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -30,10 +30,10 @@ const Header = () => {
         </Pressable>
       </View>
       <View style={{ flexDirection: 'row' }} >
-        <IconButton name="search-outline" />
-        <IconButton name="person-add-outline" />
-        <IconButton name="musical-notes-outline" />
-        <IconButton name="settings-outline" />
+        <IconButton name="search-outline"  />
+        <IconButton name="person-add-outline"  />
+        <IconButton name="musical-notes-outline"  />
+        <IconButton name="settings-outline"  />
       </View>
     </View>
   )
