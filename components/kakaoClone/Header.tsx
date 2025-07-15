@@ -26,7 +26,7 @@ const Header = () => {
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={styles.title}>친구</Text>
         <Pressable onPress={() => router.push('/')}>
-          <IconButton name="home" size={24} />
+          <Ionicons name="home" size={24} color="#333" />
         </Pressable>
       </View>
       <View style={{ flexDirection: 'row' }} >
