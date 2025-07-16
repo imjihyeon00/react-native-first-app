@@ -23,6 +23,16 @@ export default function HomeScreen() {
           >
             <Text style={styles.linkButtonText}>카카오 클론 만들기</Text>
           </Pressable>
+          <Pressable 
+            style={({ pressed }) => [
+              styles.linkButton,
+              pressed && styles.linkPressedButton
+            ]}
+            
+            onPress={() => router.push('/calculator')}
+          >
+            <Text style={styles.linkButtonText}>계산기</Text>
+          </Pressable>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
