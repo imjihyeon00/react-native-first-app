@@ -5,12 +5,6 @@ import { SafeAreaProvider, SafeAreaView, useSafeAreaInsets } from "react-native-
 export default function CalculatorPage() {
   const insets = useSafeAreaInsets();
   const styles = getStyles(insets);
-  // const [input, setInput] = useState<number>(0);
-  // const [currentOperator, setCurrentOperator] = useState<string | null>(null);
-  // const [result, setResult] = useState<number | null>(null);
-  // const [tempInput, setTempInput] = useState<number | null>(null);
-  // const [tempOperator, setTempOperator] = useState<string | null>(null);
-  
   
   return (
     <SafeAreaProvider>

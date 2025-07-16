@@ -1,11 +1,24 @@
-import { CalculatorBtnTypeList } from "@/constants/CalculatorTypes";
+import { CALCULATOR_COLOR, CalculatorBtnTypeList } from "@/constants/CalculatorTypes";
+import { useState } from "react";
 import { styled } from "styled-components/native";
 import Button from "./Button";
 
 export default function Calculator() {
+  const [input, setInput] = useState<number>(0);
+  const [currentOperator, setCurrentOperator] = useState<string | null>(null);
+  const [result, setResult] = useState<number | null>(null);
+  const [tempInput, setTempInput] = useState<number | null>(null);
+  const [tempOperator, setTempOperator] = useState<string | null>(null);
+    
+
   return (
     <CalculatorArea>
       {/* result */}
+      <InputContainer>
+        <InputText>
+          {input}
+        </InputText>
+      </InputContainer>
       {/* AC ~ / */}
       <RowBox>
         <Button 
@@ -121,8 +134,21 @@ export default function Calculator() {
   )
 };
 
+const InputContainer = styled.View`
+  background-color: ${CALCULATOR_COLOR.RESULT};
+  min-height: 50px;
+`;
+
+const InputText = styled.Text`
+  color: #fff;
+  font-size: 30px;
+  text-align: right;
+  padding: 10px;
+`;
+
 const CalculatorArea = styled.View`
   flex: 1;
+  justify-content: center;
   width: 200px;
 `;
 
