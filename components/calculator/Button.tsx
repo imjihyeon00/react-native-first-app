@@ -6,19 +6,22 @@ interface CalculatorButtonProps {
   onPress: () => void;
   flex: number;
   type: CalculatorBtnType;
+  isSelected?: boolean;
 }
 
 export default function Button({
   text="", 
   onPress, 
   flex, 
-  type
+  type,
+  isSelected=false
 }:CalculatorButtonProps) {
   return (
     <TouchBtn 
       onPress={onPress} 
       $bgColor={CALCULATOR_COLOR[type]}
       $flex={flex}
+      $isSelected={isSelected}
     >
       <BtnText>{text}</BtnText>
     </TouchBtn>
@@ -28,6 +31,7 @@ export default function Button({
 interface TouchBtnProps {
   $bgColor: string;
   $flex: number;
+  $isSelected?: boolean;
 }
 
 const TouchBtn = styled.TouchableOpacity<TouchBtnProps>`
@@ -36,7 +40,7 @@ const TouchBtn = styled.TouchableOpacity<TouchBtnProps>`
   justify-content: center;
   align-items: center;
   height: 50px;
-  border: 0.2px solid #333;
+  border: ${props => props.$isSelected ? '1px solid #333' : '0.2px solid #333'};
 `;
 
 const BtnText = styled.Text`

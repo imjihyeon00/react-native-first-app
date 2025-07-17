@@ -1,5 +1,6 @@
 import { CALCULATOR_COLOR, CalculatorBtnTypeList } from "@/constants/CalculatorTypes";
 import { useState } from "react";
+import { Text } from "react-native";
 import { styled } from "styled-components/native";
 import Button from "./Button";
 
@@ -9,10 +10,83 @@ export default function Calculator() {
   const [result, setResult] = useState<number | null>(null);
   const [tempInput, setTempInput] = useState<number | null>(null);
   const [tempOperator, setTempOperator] = useState<string | null>(null);
-    
+  const [isClickedOperator, setIsClickedOperator] = useState<boolean>(false);
+  const [isClickedEqual, setIsClickedEqual] = useState<boolean>(false);
+
+  const hasInput = !!input;
+
+  const onPressNumber = (num: number) => {
+    if(currentOperator && isClickedOperator) {
+      setResult(input);
+      setInput(num);
+      setIsClickedOperator(false);
+    } else {
+      const newInput = Number(`${input}${num}`);
+      setInput(newInput);
+    }
+
+  }
+
+  const onPressOperator = (operator: string) => {
+    if (operator !== "=") {
+      setCurrentOperator(operator);
+      setIsClickedOperator(true);
+      setIsClickedEqual(false);
+    } else {
+      let finalResult = result;
+      const finalInput = isClickedEqual ? (tempInput ?? 0) : input;
+      const finalOperator = isClickedEqual ? tempOperator : currentOperator;
+      switch (finalOperator) {
+        case "+":
+          finalResult = (result ?? 0) + finalInput;
+          break;
+        case "-":
+          finalResult = (result ?? 0) - finalInput;
+          break;
+        case "*":
+          finalResult = (result ?? 0) * finalInput;
+          break;
+        case "/":
+          if (finalInput !== 0) {
+            finalResult = (result ?? 0) / finalInput;
+          }
+          break;
+        default:
+          break; 
+      }
+      setResult(finalResult);
+      setInput(finalResult ?? 0);
+      setTempInput(finalInput);
+      setCurrentOperator(null);
+      setTempOperator(finalOperator);
+      setIsClickedEqual(true);
+    }
+  }
+
+  const onPressReset = () => {
+    if(hasInput){
+      setInput(0);
+    } else {
+      setInput(0);
+      setCurrentOperator(null);
+      setResult(null);
+      setTempInput(null);
+      setTempOperator(null);
+      setIsClickedOperator(false);
+    }
+  }
+
 
   return (
     <CalculatorArea>
+      {/* Test */}
+      <Text>input: {input}</Text>
+      <Text>currentOperator: {currentOperator}</Text>
+      <Text>result: {result}</Text>
+      <Text>tempInput: {tempInput}</Text>
+      <Text>tempOperator: {tempOperator}</Text>
+
+      
       {/* result */}
       <InputContainer>
         <InputText>
@@ -23,96 +97,73 @@ export default function Calculator() {
       <RowBox>
         <Button 
           type={CalculatorBtnTypeList.RESET}
-          text="AC"
-          onPress={() => { }}
+          text={hasInput ? "C" : "AC"}
+          onPress={onPressReset}
           flex={3}
         />
         <Button 
           type={CalculatorBtnTypeList.OPERATOR}
           text="/" 
-          onPress={() => {}} 
+          onPress={() => onPressOperator("/")} 
           flex={1}
+          isSelected={currentOperator === "/"}
         />
       </RowBox>
       {/* 7 ~ x */}
       <RowBox>
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="7"
-          onPress={() => { }}
-          flex={1}
-        />
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="8"
-          onPress={() => { }}
-          flex={1}
-        />
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="9"
-          onPress={() => { }}
-          flex={1}
-        />
+        {[7, 8, 9].map(num => (
+          <Button 
+            key={num}
+            type={CalculatorBtnTypeList.NUM}
+            text={num.toString()}
+            onPress={() => onPressNumber(num)}
+            flex={1}
+          />
+        ))}
         <Button 
           type={CalculatorBtnTypeList.OPERATOR}
           text="x" 
-          onPress={() => {}} 
+          onPress={() => onPressOperator("*")} 
           flex={1}
+          isSelected={currentOperator === "*"}
         />
       </RowBox>
       {/* 4 ~ - */}
       <RowBox>
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="4"
-          onPress={() => { }}
-          flex={1}
-        />
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="5"
-          onPress={() => { }}
-          flex={1}
-        />
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="6"
-          onPress={() => { }}
-          flex={1}
-        />
+        {[4, 5, 6].map(num => (
+          <Button 
+            key={num}
+            type={CalculatorBtnTypeList.NUM}
+            text={num.toString()}
+            onPress={() => onPressNumber(num)}
+            flex={1}
+          />
+        ))}
         <Button 
           type={CalculatorBtnTypeList.OPERATOR}
           text="-" 
-          onPress={() => {}} 
+          onPress={() => onPressOperator("-")} 
           flex={1}
+          isSelected={currentOperator === "-"}
         />
       </RowBox>
       {/* 1 ~ + */}
       <RowBox>
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="1"
-          onPress={() => { }}
-          flex={1}
-        />
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="2"
-          onPress={() => { }}
-          flex={1}
-        />
-        <Button 
-          type={CalculatorBtnTypeList.NUM}
-          text="3"
-          onPress={() => { }}
-          flex={1}
-        />
+        {[1, 2, 3].map(num => (
+          <Button 
+            key={num}
+            type={CalculatorBtnTypeList.NUM}
+            text={num.toString()}
+            onPress={() => onPressNumber(num)}
+            flex={1}
+          />
+        ))}
         <Button 
           type={CalculatorBtnTypeList.OPERATOR}
           text="+" 
-          onPress={() => {}} 
+          onPress={() => onPressOperator("+")} 
           flex={1}
+          isSelected={currentOperator === "+"}
         />
       </RowBox>
       {/* 0 ~ = */}
@@ -120,13 +171,13 @@ export default function Calculator() {
         <Button 
           type={CalculatorBtnTypeList.NUM}
           text="0"
-          onPress={() => { }}
+          onPress={() => { onPressNumber(0) }}
           flex={3}
         />
         <Button 
           type={CalculatorBtnTypeList.OPERATOR}
           text="=" 
-          onPress={() => {}} 
+          onPress={() => {onPressOperator("=")}} 
           flex={1}
         />
       </RowBox>
