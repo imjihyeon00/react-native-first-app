@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
 import React from "react";
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import HomeButton from '../common/HomeButton';
 
 type IconProps = {
   name: React.ComponentProps<typeof Ionicons>['name'];
@@ -18,16 +18,13 @@ const IconButton = ({ name, size = 24, color = 'black' }: IconProps) => {
 };
 
 const Header = () => {
-  const router = useRouter();
   
 
   return (
     <View style={styles.headerContainer}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <HomeButton />
         <Text style={styles.title}>친구</Text>
-        <Pressable onPress={() => router.push('/')}>
-          <Ionicons name="home" size={24} color="#333" />
-        </Pressable>
       </View>
       <View style={{ flexDirection: 'row' }} >
         <IconButton name="search-outline"  />
