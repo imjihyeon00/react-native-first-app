@@ -22,6 +22,7 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="kakaoClone" options={{ headerShown: false }} />
         <Stack.Screen name="calculator" options={{ headerShown: false }} />
+        <Stack.Screen name="toDoList" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       {/* <StatusBar style="auto" /> */}

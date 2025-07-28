@@ -33,6 +33,16 @@ export default function HomeScreen() {
           >
             <Text style={styles.linkButtonText}>계산기</Text>
           </Pressable>
+          <Pressable 
+            style={({ pressed }) => [
+              styles.linkButton,
+              pressed && styles.linkPressedButton
+            ]}
+            
+            onPress={() => router.push('/toDoList')}
+          >
+            <Text style={styles.linkButtonText}>투두리스트 + 달력</Text>
+          </Pressable>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
