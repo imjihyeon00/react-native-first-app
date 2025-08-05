@@ -1,19 +1,33 @@
 import CalendarArrowBtn from "@/components/toDoList/CalendarArrowBtn";
 import CalendarColumn from "@/components/toDoList/CalendarColumn";
 import { getCalendarColumns, getDayColor, getDayText } from "@/components/toDoList/util";
+import useCalendar from "@/hooks/useCalendar";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { styled } from "styled-components/native";
 
 
 export default function ToDoList() {
-  const now = dayjs();
-  
-  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(now);
+  const now = dayjs();  
+  const {
+    selectedDate,
+    setSelectedDate,
+    isDatePickerVisible,
+    showDatePicker,
+    hideDatePicker,
+    handleConfirm,
+    subtractMonth,
+    addMonth,
+  } = useCalendar(now)
+
   const columns = getCalendarColumns(selectedDate);
-  
+
+  const onPressLeftArrow = subtractMonth;
+  const onPressRightArrow = addMonth;
+
   const renderItem = ({ item:date }: { item: dayjs.Dayjs }) => {
     const dateText = dayjs(date).get("date");
     const day = dayjs(date).get("day");
@@ -41,20 +55,16 @@ export default function ToDoList() {
         <CalendarHeader>
           <CalendarArrowBtn
             direction="left"
-            onPress={() => {
-              // Handle left arrow press
-            }}
+            onPress={onPressLeftArrow}
           />
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={showDatePicker}>
             <CalendarDateText>{currentDateText}</CalendarDateText>
           </TouchableOpacity>
 
           <CalendarArrowBtn
             direction="right"
-            onPress={() => {
-              // Handle right arrow press
-            }}
+            onPress={onPressRightArrow}
           />
         </CalendarHeader>
         <View style={{
@@ -91,6 +101,12 @@ export default function ToDoList() {
           renderItem={renderItem}
           numColumns={7}
           ListHeaderComponent={ListHeaderComponent}
+        />
+        <DateTimePickerModal
+          isVisible={isDatePickerVisible}
+          mode="date"
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
         />
       </ToDoListContainer>
     </SafeAreaProvider>
