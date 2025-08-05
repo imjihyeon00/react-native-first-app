@@ -2,6 +2,7 @@ import CalendarArrowBtn from "@/components/toDoList/CalendarArrowBtn";
 import CalendarColumn from "@/components/toDoList/CalendarColumn";
 import { getCalendarColumns, getDayColor, getDayText } from "@/components/toDoList/util";
 import dayjs from "dayjs";
+import { useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { styled } from "styled-components/native";
@@ -9,25 +10,31 @@ import { styled } from "styled-components/native";
 
 export default function ToDoList() {
   const now = dayjs();
-  const columns = getCalendarColumns(now);
+  
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(now);
+  const columns = getCalendarColumns(selectedDate);
   
   const renderItem = ({ item:date }: { item: dayjs.Dayjs }) => {
     const dateText = dayjs(date).get("date");
     const day = dayjs(date).get("day");
     const color = getDayColor(day);
-    const isCurrentMonth = dayjs(date).isSame(now, "month");
+    const isCurrentMonth = dayjs(date).isSame(selectedDate, "month");
 
     return (
       <CalendarColumn
         text={dateText.toString()}
         color={color}
         opacity={isCurrentMonth ? 1 : 0.5}
+        onPress={() => {
+          setSelectedDate(date);
+        }}
+        isSelected={dayjs(date).isSame(selectedDate, "day")}
       />
     );
   };
 
   const ListHeaderComponent = () => {
-    const currentDateText = dayjs(now).format("YYYY.MM.DD.");
+    const currentDateText = dayjs(selectedDate).format("YYYY.MM.DD.");
 
     return (
       <View>
@@ -62,6 +69,7 @@ export default function ToDoList() {
                 text={dayText}
                 color={getDayColor(day)}
                 opacity={1}
+                disabled={true}
               />
             )
           })}
@@ -69,6 +77,10 @@ export default function ToDoList() {
       </View>
     )
   }
+
+  useEffect(() => {
+    console.log("Selected date changed:", dayjs(selectedDate).format("YYYY-MM-DD"));
+  }, [selectedDate]);
 
   return (
     <SafeAreaProvider>
