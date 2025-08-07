@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { styled } from "styled-components/native";
 import CalendarArrowBtn from "./CalendarArrowBtn";
 import CalendarColumn from "./CalendarColumn";
@@ -22,8 +21,6 @@ export default function Calendar({
   onPressRightArrow,
   onPressDate,
 }: CalendarProps) {
-  const insets = useSafeAreaInsets();
-
   const renderItem = ({ item: date }: { item: dayjs.Dayjs }) => {
     const dateText = dayjs(date).get("date");
     const day = dayjs(date).get("day");
@@ -85,9 +82,6 @@ export default function Calendar({
 
   return (
     <FlatList
-      contentContainerStyle={{
-        paddingTop: insets.top,
-      }}
       scrollEnabled={false}
       keyExtractor={(_, index) => index.toString()}
       data={columns}
